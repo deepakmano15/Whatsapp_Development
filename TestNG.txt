@@ -1,0 +1,248 @@
+TestNG
+Disadvantage of junit
+
+1.it's provide defult Html report
+2.easy to set priority
+3.data provider is possible
+4.cross browser and parlal execuation is possible
+5.using parameter pass the data
+6.grouping easy to group the test cases
+7.automatically we can rerun the failed test cases
+
+
+TestNG= unit,functional,integration,E2E
+TestNG = Testing Framework
+
+TestNG = > Next Generation
+
+===============================
+How to install
+Help=>Install New Software
+Help=>Marketplace=>Search TestNG
+
+Add 
+Name : TestNG (version 6.14.3)
+Location :https://testng.org/testng-eclipse-update-site.
+
+Restart Eclips
+
+TestNG Annotations
+@Test
+
+Example
+@Test
+public void firstTestCase(){
+syso("firstTestCase")
+}
+==================================
+	Atribute
+@Test(priority=0)
+
+
+Example
+@Test(priority=0)
+public void firstTestCase(){
+syso("firstTestCase")
+}
+========================
+
+Skip
+@Test(enabled=false)
+
+Example
+@Test(priority=3,enabled=false)
+public void turnTheMusic(){
+syso("turnTheMusic")
+}
+===========================
+
+DependanciesManagement
+@Test(dependsOnMethods="highSchool method Name")
+
+Example
+@Test(enabled=false)
+public void highSchool(){
+syso("turnTheMusic")
+}
+
+@Test(dependsOnMethods="highSchool")
+public void higherSecondarySchool(){
+syso("turnTheMusic")
+}
+
+================================
+
+@BeforeSuite-one time execution in our entire project
+@AfterSuiite
+
+Example
+@BeforeSuite
+public void launchBrowser(){
+
+}
+
+@AfterSuiite
+public void closeTheBrowser(){
+
+}
+===========================================
+Suite=Collection of Test Cases
+
+90%of the orgnization this structure
+=======================
+how to create TestNGSuite File
+Xml file need to create 
+
+	Suite name=""
+	Test name=""
+	Classes
+	class
+
+Fully qualified Class name
+packagename.classname
+
+	class name="testNG.classname"
+
+
+=============================
+
+@Test(groups={"smoke"})
+
+suite
+test
+groups
+	run
+	include name="smoke"
+================================
+Parameterization
+@Test
+@parameters("Name")
+public void sample(String name){}
+
+suite
+test
+parameter name="Name"	value="yuvaraj"
+
+=====================================
+parallelTesting
+
+suite name ="" parallel="methods" thread-count="2"
+test
+classes
+class name"testNg.sample"
+========================================
+Assertions
+if condations
+unit test
+developer devloped a code self review is the unit test
+String
+Assert.assertEquals(name,"yuvaraj");
+Assert.assertNotEquals(name,"yuvaraj");
+boolean value=false;
+Assert.assertTrue(value,"this should not be true");
+Assert.assertFalse(value,"this should not be true");
+
+============================================
+Annotations orders
+
+New=>others=>TestNG class
+
+beforeSuite
+beforetest
+beforeClass
+beforemethod
+test
+aftermethod
+afterclass
+aftertest
+aftersuite
+=====================
+Listners general meaning monitoring
+https://www.guru99.com/listeners-selenium-webdriver.html
+
+interface
+ItestListenner
+
+Suite
+<listeners>
+<listener class-name="testNG.lisnersExample"/>
+<test name="Test cases">
+<classes>
+<class name="TestNG.sampleTestCase"/>
+</classes>
+</test>
+</suite>
+================================
+how to Rerun the failed test cases
+===============
+1.We can run testng-failed.xml
+2.using IRetryAnalyzer Interface
+3.Using IAnnotationTransformer interface and IRetryAnalyzer interface
+
+@test
+Assert.assertEquals(true,false);
+@test
+Assert.assertEquals(true,true);
+
+Testcases failed automatically testng-failed.xml genrated in the Test-output folder
+
+automatically how to rerun
+IRetryAnalyser
+
+int failedCount=0;
+int limit=4;
+public boolean retry(ItestResult reslut){
+if(failedCount<limit){
+failedCount++;
+return true;
+}
+return false;
+}
+
+====
+@Test(retryAnalyser=RetryListner.class)
+
+Using IAnnotationTransformer interface and IRetryAnalyzer interface
+Create class
+Transformer implements IAnnotationTransformer 
+
+transform(ItestAnnotation annotation){
+annotation.setRetryAnalyser(RetryLister.class)
+}
+
+<suite name="test suite">
+<listeners>
+<listener class-name="com.tcs.aig.sample.Listner"></listener>
+</listeners>
+
+===============
+@DataProvider
+
+Data driven testing
+combination of datas 
+based on data code will run
+
+
+String [][] data ={
+{"Admin",Admin1},
+{"Admin",Admin2},
+{"Admin",Admin2},
+{"Admin",Admin1}
+}
+
+
+@dataProvider(name="loginData")
+public String[][] loginDataProvider(){
+
+return data;
+}
+
+
+@Test(dataProvidr="loginData")
+public void loginWithScenarios(String uName,String pWord){
+
+}
+
+======================================================
+
+invocation count
